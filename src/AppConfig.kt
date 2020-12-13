@@ -5,11 +5,13 @@ import com.example.repo.GameRepo
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
+import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
+import kotlinx.html.*
 import java.text.DateFormat
 import java.time.Duration
 
@@ -54,6 +56,25 @@ fun Application.main() {
                 val receive = call.receive<Game>()
                 println("Received post request: $receive")
                 call.respond(GameRepo.add(receive))
+            }
+        }
+
+        // Html
+        get("/") {
+            call.respondHtml {
+                head {
+                    title("Kotlin API")
+                }
+                body {
+                    div {
+                        h1 {
+                            + "Welcome to the Games API"
+                        }
+                        p {
+                            + "Go to '/game' to begin using the API"
+                        }
+                    }
+                }
             }
         }
     }
