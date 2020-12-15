@@ -29,6 +29,7 @@ fun Application.main() {
             setPrettyPrinting()
         }
     }
+
     routing {
         get("$REST_ENDPOINT/{id}") {
             errorAware { val id = call.parameters["id"] ?: throw IllegalArgumentException("Parameter ID not found")
